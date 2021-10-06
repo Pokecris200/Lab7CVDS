@@ -6,7 +6,7 @@
 
 2. Descargue el archivo JDBCExample.java y agreguelo en el paquete "edu.eci.cvds.sampleprj.jdbc.example".
 
-![]()
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Ubicacion%20Archivo%20punto%202.png)
 
 6. En la clase JDBCExample juste los parámetros de conexión a la base de datos con los datos reales:
 + Url: jdbc:mysql://desarrollo.is.escuelaing.edu.co:3306/bdprueba
@@ -14,24 +14,32 @@
 + Usuario: bdprueba
 + Contraseña: prueba2019
 
-![]()
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Parametros%20de%20conexion.png)
 
 7. Implemente las operaciones faltantes:
 + nombresProductosPedido
+
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Nombres%20productos%20del%20pedido.png)
+
 + valorTotalPedido - El resultado final lo debe retornar la base de datos, no se deben hacer operaciones en memoria.
+
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Valor%20del%20pedido.png)
+
 + registrarNuevoProducto - Use su código de estudiante para evitar colisiones.
-
-![]()
-
-![]()
 
 8. Verifique por medio de un cliente SQL, que la información retornada por el programa coincide con la que se encuentra almacenada en base de datos.
 
-![]()
++ nombresProductosPedido
 
-![]()
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Nombres%20productos%20del%20pedido%20Client%20MySQL.png)
 
-![]()
++ valorTotalPedido
+
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Valor%20del%20pedido%20Client%20MySQL.png)
+
++ registrarNuevoProducto
+
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Adicion%20nuevo%20Producto%20Client%20MySQL.png)
 
 ## Parte I (Para entregar en clase)
 
