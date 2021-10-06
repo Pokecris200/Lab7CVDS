@@ -1,5 +1,38 @@
 # José Manuel Gamboa - Cristian Camilo Forero
 
+## LABORATORIO 7 - PERSISTENCIA - 2021-2
+
+## SECCIÓN I. - INTRODUCCIÓN A JDBC
+
+2. Descargue el archivo JDBCExample.java y agreguelo en el paquete "edu.eci.cvds.sampleprj.jdbc.example".
+
+![]()
+
+6. En la clase JDBCExample juste los parámetros de conexión a la base de datos con los datos reales:
++ Url: jdbc:mysql://desarrollo.is.escuelaing.edu.co:3306/bdprueba
++ Driver: com.mysql.jdbc.Driver
++ Usuario: bdprueba
++ Contraseña: prueba2019
+
+![]()
+
+7. Implemente las operaciones faltantes:
++ nombresProductosPedido
++ valorTotalPedido - El resultado final lo debe retornar la base de datos, no se deben hacer operaciones en memoria.
++ registrarNuevoProducto - Use su código de estudiante para evitar colisiones.
+
+![]()
+
+![]()
+
+8. Verifique por medio de un cliente SQL, que la información retornada por el programa coincide con la que se encuentra almacenada en base de datos.
+
+![]()
+
+![]()
+
+![]()
+
 ## Parte I (Para entregar en clase)
 
 1. Ubique los archivos de configuración para producción de MyBATIS (mybatis-config.xml). Éste está en la ruta donde normalmente se ubican los archivos de configuración de aplicaciones montadas en Maven (src/main/resources). Edítelos y agregue en éste, después de la sección &lt;settings&gt; los siguientes 'typeAliases':
@@ -159,3 +192,14 @@
 	```
 	
 	Verifique el funcionamiento haciendo una consulta a través del 'mapper' desde MyBatisExample.
+
+## Bibliografia
+
++ <https://docs.oracle.com/javase/tutorial/jdbc/basics/prepared.html>
++ <https://howtodoinjava.com/java/jdbc/jdbc-select-query-example/>
++ <https://www.anerbarrena.com/mysql-sum-9919/>
++ <https://www.w3schools.com/sql/sql_distinct.asp>
++ <http://www.edu4java.com/es/sql/sql5.html>
++ <https://stackoverflow.com/questions/6810375/resultset-convert-to-int-from-query>
++ <https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/>
++ <https://www.anerbarrena.com/mysql-insert-5169/>

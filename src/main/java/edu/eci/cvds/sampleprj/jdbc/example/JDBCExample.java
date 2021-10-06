@@ -6,8 +6,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,7 +27,7 @@ public class JDBCExample {
             con.setAutoCommit(false);
                  
             
-            System.out.println("Valor total pedido 1:"+valorTotalPedido(con, 1));
+            System.out.println("Valor total pedido 1: " + valorTotalPedido(con, 1));
             
             List<String> prodsPedido=nombresProductosPedido(con, 1);
             
@@ -38,8 +40,8 @@ public class JDBCExample {
             System.out.println("-----------------------");
             
             
-            int suCodigoECI=20134423;
-            registrarNuevoProducto(con, suCodigoECI, "SU NOMBRE", 99999999);            
+            int suCodigoECI=2162965;
+            registrarNuevoProducto(con, suCodigoECI, "José Gamboa", 1545154);
             con.commit();
                         
             
@@ -61,6 +63,19 @@ public class JDBCExample {
      * @throws SQLException 
      */
     public static void registrarNuevoProducto(Connection con, int codigo, String nombre,int precio) throws SQLException{
+
+        String insertString ="INSERT INTO ORD_PRODUCTOS VALUES (?, ?, ?)";
+        try(PreparedStatement insertProduct = con.prepareStatement(insertString);)
+        {
+            insertProduct.setInt(1, codigo);
+            insertProduct.setString(2, nombre);
+            insertProduct.setInt(3, precio);
+            insertProduct.execute();
+        }
+        catch(SQLException e){
+        	System.out.println("Se petateto " + e.getMessage());
+        }
+
         //Crear preparedStatement
         //Asignar parámetros
         //usar 'execute'
@@ -78,20 +93,16 @@ public class JDBCExample {
      */
     public static List<String> nombresProductosPedido(Connection con, int codigoPedido){
         List<String> np=new LinkedList<>();
-        String selectString ="select name from ORD_PRODUCTOS";
-        String selectStatement ="update COFFEES set TOTAL = TOTAL + ? where COF_NAME = ?";
+        String selectString ="SELECT DISTINCT nombre FROM ORD_PEDIDOS INNER JOIN ORD_DETALLE_PEDIDO INNER JOIN ORD_PRODUCTOS WHERE ORD_PEDIDOS.codigo = ?";
         try(PreparedStatement selectProduct = con.prepareStatement(selectString);)
         {
-        	ResultSet selectSet = selectProduct.executeQuery();
-        	for(String i : selectSet.getArray(selectStatement))
-        	{
-        		
-        	}
-        	
-        	
+        	selectProduct.setInt(1, codigoPedido);
+            ResultSet selectSet = selectProduct.executeQuery();
+            while(selectSet.next()){
+                np.add(selectSet.getString(1));
+            }
         }
-        catch(SQLException e)
-        {
+        catch(SQLException e){
         	
         }
         //Crear prepared statement
@@ -110,18 +121,29 @@ public class JDBCExample {
      * @param codigoPedido código del pedido cuyo total se calculará
      * @return el costo total del pedido (suma de: cantidades*precios)
      */
-    public static int valorTotalPedido(Connection con, int codigoPedido){
+    public static Long valorTotalPedido(Connection con, int codigoPedido){
+
+        ArrayList<String> value = new ArrayList<>();
+
+        String calculateInt ="SELECT SUM(ORD_DETALLE_PEDIDO.cantidad*ORD_PRODUCTOS.precio) AS Total FROM ORD_PEDIDOS INNER JOIN ORD_DETALLE_PEDIDO INNER JOIN ORD_PRODUCTOS WHERE ORD_PEDIDOS.codigo = ?";
+
+        try(PreparedStatement calculateValue = con.prepareStatement(calculateInt);)
+        {
+        	calculateValue.setInt(1, codigoPedido);
+            ResultSet calculateSet = calculateValue.executeQuery();
+            while(calculateSet.next()){
+                value.add(calculateSet.getString(1));
+            }
+        }
+        catch(SQLException e) {
+        	System.out.println("Se petateto " + e.getMessage());
+            
+        }
         
         //Crear prepared statement
         //asignar parámetros
         //usar executeQuery
         //Sacar resultado del ResultSet
-        
-        return 0;
+        return Long.parseLong(value.get(0));
     }
-    
-
-    
-    
-    
 }
