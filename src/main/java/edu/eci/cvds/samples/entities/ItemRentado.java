@@ -17,12 +17,14 @@ public class ItemRentado implements Serializable {
     private int id;
 
     private Item item;
+    private Cliente client;
     private Date fechainiciorenta;
     private Date fechafinrenta;
 
-    public ItemRentado(int id, Item item, Date fechainiciorenta, Date fechafinrenta) {
+    public ItemRentado(int id, Item item, Cliente cliente, Date fechainiciorenta, Date fechafinrenta) {
         this.id = id;
         this.item = item;
+        this.client = cliente;
         this.fechainiciorenta = fechainiciorenta;
         this.fechafinrenta = fechafinrenta;
     }
@@ -46,6 +48,14 @@ public class ItemRentado implements Serializable {
         this.item = item;
     }
 
+    public Cliente gCliente(){
+        return client;
+    }
+
+    public void setCliente(Cliente cliente){
+        this.client = cliente;
+    }
+
     public Date getFechainiciorenta() {
         return fechainiciorenta;
     }
@@ -64,7 +74,7 @@ public class ItemRentado implements Serializable {
 
     @Override
     public String toString() {
-        return "ItemRentado{" + "id=" + id + ", item=" + item + ", fechainiciorenta=" + fechainiciorenta + ", fechafinrenta=" + fechafinrenta + '}';
+        return "ItemRentado{" + "id=" + id + ", item=" + item + "client="+ client + ", fechainiciorenta=" + fechainiciorenta + ", fechafinrenta=" + fechafinrenta + '}';
     }
 
     
