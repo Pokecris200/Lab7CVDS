@@ -37,11 +37,7 @@
 
 ![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Valor%20del%20pedido%20Client%20MySQL.png)
 
-+ registrarNuevoProducto
-
-![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Adicion%20nuevo%20Producto%20Client%20MySQL.png)
-
-## Parte I (Para entregar en clase)
+## Parte I
 
 1. Ubique los archivos de configuración para producción de MyBATIS (mybatis-config.xml). Éste está en la ruta donde normalmente se ubican los archivos de configuración de aplicaciones montadas en Maven (src/main/resources). Edítelos y agregue en éste, después de la sección &lt;settings&gt; los siguientes 'typeAliases':
 
@@ -178,7 +174,7 @@
 
 ![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Consulta%20SQL%20MyBatis.png)
 
-## Parte II (para el Miércoles)
+## Parte II
 
 2. Verifique el funcionamiento haciendo una consulta a través del 'mapper' desde MyBatisExample.
 
