@@ -134,7 +134,7 @@
 	Teniendo en cuenta lo anterior, haga los ajustes correspondientes en la configuración para el caso del modelo de Alquiler de películas.
 
 	
-7. Si intenta utilizar el 'mapper' tal como está hasta ahora, se puede presentar un problema: qué pasa si las tablas a las que se les hace JOIN tienen nombres de columnas iguales?... Con esto MyBatis no tendría manera de saber a qué atributos corresponde cada una de las columnas. Para resolver esto, si usted hace un query que haga JOIN entre dos o más tablas, siempre ponga un 'alias' con un prefijo el query. Por ejemplo, si se tiene
+6. Si intenta utilizar el 'mapper' tal como está hasta ahora, se puede presentar un problema: qué pasa si las tablas a las que se les hace JOIN tienen nombres de columnas iguales?... Con esto MyBatis no tendría manera de saber a qué atributos corresponde cada una de las columnas. Para resolver esto, si usted hace un query que haga JOIN entre dos o más tablas, siempre ponga un 'alias' con un prefijo el query. Por ejemplo, si se tiene
 
 	```sql	
 	select ma.propiedad1, det.propiedad1 ....
@@ -159,8 +159,9 @@
 	```
 	Haga los ajustes necesarios en la consulta y en los 'resultMap' para que no haya inconsistencias de nombres.
 
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Adicion%20resultMap%20a%20las%20collections.png)
 
-8. Use el programa de prueba suministrado (MyBatisExample) para probar cómo a través del 'mapper' generado por MyBatis, se puede consultar un Cliente. 
+7. Use el programa de prueba suministrado (MyBatisExample) para probar cómo a través del 'mapper' generado por MyBatis, se puede consultar un Cliente. 
 
 	```java	
 	...
@@ -173,28 +174,34 @@
 
 ![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Ejecucion%20MyBatis.png)
 
++ Comparacion con MySQL
+
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Consulta%20SQL%20MyBatis.png)
+
 ## Parte II (para el Miércoles)
-
-1. Configure en el XML correspondiente, la operación consultarCliente(int id) del 'mapper' ClienteMapper.
-
-	En este caso, a diferencia del método anterior (cargar todos), el método asociado al 'mapper' tiene parámetros que se deben usar en la sentencia SQL. Es decir, el parámetro 'id' de  _public Cliente consultarCliente(int id);_ se debe usar en el WHERE de su correspondiente sentencia SQL. Para hacer esto tenga en cuenta:
-
-	* Agregue la anotación @Param a dicho parámetro, asociando a ésta el nombre con el que se referirá en la sentencia SQL:
-
-	```java
-		public Cliente consultarCliente(@Param("idcli") int id);
-	
-	```
-
-	* Al XML (\<select>, \<insert>, etc) asociado al método del mapper, agregue la propiedad _parameterType="map"_ .
-	* Una vez hecho esto, podrá hacer referencia dentro de la sentencia SQL a este parámetro a través de: #{idcli}
 
 2. Verifique el funcionamiento haciendo una consulta a través del 'mapper' desde MyBatisExample.
 
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/consultarCliente.png)
+
 3. Configure en el XML correspondiente, la operación agregarItemRentadoACliente. Verifique el funcionamiento haciendo una consulta a través del 'mapper' desde MyBatisExample.
+
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Adicion%20nuevo%20Producto%20Client%20MyBatis.png)
 
 4. Configure en el XML correspondiente (en este caso ItemMapper.xml) la operación 'insertarItem(Item it). Para este tenga en cuenta:
 	* Al igual que en en los dos casos anteriores, el query estará basado en los parámetros ingresados (en este caso, un objeto Item). En este caso, al hacer uso de la anotación @Param, la consulta SQL se podrá componer con los atributos de dicho objeto. Por ejemplo, si al paramétro se le da como nombre ("item"): __insertarItem(@Param("item")Item it)__, en el query se podría usar #{item.id}, #{item.nombre}, #{item.descripcion}, etc. Verifique el funcionamiento haciendo una consulta a través del 'mapper' desde MyBatisExample.
+
++ Modificacion de la interface ItemMapper.java
+
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/mod%20interface%20ItemMapper.png)
+
++ Sentencia insertarItem
+
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/insert%20Item.png)
+
++ Ejecucion junto a la consulta
+
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Ejecucion%20MyBatis%20insert%20item.png)
 	
 5. 	Configure en el XML correspondiente (de nuevo en ItemMapper.xml) las operaciones 'consultarItem(int it) y 'consultarItems()' de ItemMapper. En este caso, tenga adicionalmente en cuenta:
 	* Para poder configurar dichas operaciones, se necesita el 'resultMap' definido en ClientMapper. Para evitar tener CODIGO REPETIDO, mueva el resultMap _ItemResult_ de ClienteMapper.xml a ItemMapper.xml. Luego, como dentro de ClienteMapper el resultMap _ItemRentadoResult_ requiere del resultMap antes movido, haga referencia al mismo usando como referencia absoluta en 'namespace' de ItemMapper.xml:
@@ -204,8 +211,39 @@
 		<association ... resultMap='edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper.ItemResult'></association> 
 	</resultMap>
 	```
++ Cambio de los resultMaps para ambos .xml
+
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Actualizacion%20resultMaps%20ClienteMapper.png)
+
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/ResultMaps%20ItemMapper.png)
+
++ Implementacion de las consultas
+
++ consultarItem(int it)
+
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/consultarItem%20sentencia%20ItemMapper.png)
+
++ consultarItems()
+
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Consultar%20Items%20sentencia.png)
 	
 	Verifique el funcionamiento haciendo una consulta a través del 'mapper' desde MyBatisExample.
+
++ Ejecucion consultarItem(int it) mapper
+
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Consultar%20Item.png)
+
++ Ejecucion consultarItem(int it) MySQL
+
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Consultar%20Item%20MySQL.png)
+
++ Ejecucion consultarItems() mapper
+
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Consultar%20Items.png)
+
++ Ejecucion consultarItems() MySQL
+  
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Consultar%20Items%20MySQL.png)
 
 ## Bibliografia
 
