@@ -6,6 +6,7 @@
 package edu.eci.cvds.samples.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Cliente implements Serializable{
     
@@ -14,18 +15,20 @@ public class Cliente implements Serializable{
     private String telefono;
     private String direccion;
     private String email;
-    private boolean vetado; 
+    private boolean vetado;
+    private ArrayList<ItemRentado> rentados;
 
     public Cliente() {
     }
 
-    public Cliente(String nombre, long documento, String telefono, String direccion, String email, boolean vetado) {   
+    public Cliente(String nombre, long documento, String telefono, String direccion, String email, boolean vetado, ArrayList<ItemRentado> rentados) {   
         this.nombre = nombre;
         this.documento = documento;
         this.telefono = telefono;
         this.direccion = direccion;
         this.email = email;
         this.vetado = vetado;
+        this.rentados = rentados;
     }
 
   
@@ -36,6 +39,7 @@ public class Cliente implements Serializable{
         this.direccion = direccion;
         this.email = email;
         this.vetado = false;
+        this.rentados = new ArrayList<>();
     }
 
            
@@ -87,9 +91,17 @@ public class Cliente implements Serializable{
         this.vetado = betado;
     }
 
+    public ArrayList<ItemRentado> getRentados() {
+        return rentados;
+    }
+
+    public void setRentados(ArrayList<ItemRentado> Rentados) {
+        this.rentados = Rentados;
+    }
+
     @Override
     public String toString() {
-        return "Cliente{" + "nombre=" + nombre + ", documento=" + documento + ", telefono=" + telefono + ", direccion=" + direccion + ", email=" + email + ", vetado=" + vetado + '}' + "\n\t";
+        return "Cliente{" + "nombre = " + nombre + ", documento = " + documento + ", telefono = " + telefono + ", direccion = " + direccion + ", email = " + email + ", vetado = " + vetado + ", rentados = " + rentados + '}' + "\n\t";
     } 
     
 }

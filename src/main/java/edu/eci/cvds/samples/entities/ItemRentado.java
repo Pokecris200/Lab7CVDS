@@ -8,6 +8,8 @@ package edu.eci.cvds.samples.entities;
 import java.io.Serializable;
 import java.sql.Date;
 
+import org.apache.ibatis.annotations.Param;
+
 /**
  *
  * @author 2106913

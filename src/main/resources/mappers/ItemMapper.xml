@@ -4,8 +4,37 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper">
+  
+  <insert parameterType="map" id="insertarItem">
+    insert into VI_ITEMS(id, nombre, descripcion, fechalanzamiento, tarifaxdia, formatorenta, genero, TIPOITEM_id) values (#{item.id}, #{item.nombre}, #{item.descripcion}, #{item.fechaLanzamiento}, #{item.tarifaxDia}, #{item.formatoRenta}, #{item.genero}, #{item.tipo.id})
+  </insert>
 
+  <select parameterType="map" id="consultarItem" resultMap="ItemResult">
+    select
+    *
+    FROM VI_ITEMS
+    WHERE id = #{idIt}
+  </select>
 
-    
-    
+  <select parameterType="map" id="consultarItems" resultMap="ItemResult">
+    select
+    *
+    FROM VI_ITEMS
+  </select>
+
+  <resultMap type='Item' id='ItemResult'>
+    <id property='id' column='id'/>
+    <result property='nombre' column='nombre'/>
+    <result property='descripcion' column='descripcion'/>
+    <result property='fechaLanzamiento' column='fechalanzamiento'/>
+    <result property='tarifaxDia' column='tarifaxdia'/>
+    <result property='formatoRenta' column='formatorenta'/>
+    <result property='genero' column='genero'/>
+    <association property='tipo' javaType='TipoItem' resultMap='TipoItemResult'></association>
+  </resultMap>
+
+  <resultMap type='TipoItem' id='TipoItemResult'>
+    <id property='id' column='id'/>
+    <result property='descripcion' column='descripcion'/></resultMap>
+  
 </mapper>

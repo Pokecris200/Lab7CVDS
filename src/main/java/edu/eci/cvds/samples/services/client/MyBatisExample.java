@@ -21,11 +21,15 @@ package edu.eci.cvds.samples.services.client;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.Date;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.*;
+import edu.eci.cvds.samples.entities.Item;
+import edu.eci.cvds.samples.entities.TipoItem;
 
 /**
  *
@@ -69,17 +73,22 @@ public class MyBatisExample {
         //cm...
         
         ClienteMapper cm = sqlss.getMapper(ClienteMapper.class);
-        System.out.println(cm.consultarClientes());
+        //System.out.println(cm.consultarClientes());
+        //System.out.println(cm.consultarCliente(6));
+        //cm.agregarItemRentadoACliente(998, 4, new Date(2021,10,3), new Date(2021,10,5));
 
+        ItemMapper im = sqlss.getMapper(ItemMapper.class);
+
+        //im.insertarItem(new Item(new TipoItem(70, "guerra"), 22, "Celular", "Equipo tecnologico", new Date(121, 10, 15), 1545545744, "abduzcan", "tecnologia"));
         
         sqlss.commit();
+
+        //System.out.println(im.consultarItem(93));
+        System.out.println(im.consultarItems());
         
+        //System.out.println(cm.consultarCliente(998));
         
         sqlss.close();
-
-        
-        
+   
     }
-
-
 }

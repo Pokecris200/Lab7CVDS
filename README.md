@@ -53,6 +53,7 @@
         <typeAlias type='edu.eci.cvds.samples.entities.TipoItem' alias='TipoItem'/>
     </typeAliases>	
     ```
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/TypeAliases%20mybatis-config.png)
 
 2. Lo primero que va a hacer es configurar un 'mapper' que permita que el framework reconstruya todos los objetos Cliente con sus detalles (ItemsRentados). Para hacer más eficiente la reconstrucción, la misma se realizará a partir de una sola sentencia SQL que relaciona los Clientes, sus Items Rentados, Los Items asociados a la renta, y el tipo de item. Ejecute esta sentencia en un cliente SQL (en las estaciones Linux está instalado EMMA), y revise qué nombre se le está asignando a cada columna del resultado:
 
@@ -81,6 +82,7 @@
         left join VI_ITEMS as i on ir.ITEMS_id=i.id 
         left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id 
 	```
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Consulta%20SQL%20MyBatis.png)
 
 3. Abra el archivo XML en el cual se definirán los parámetros para que MyBatis genere el 'mapper' de Cliente (ClienteMapper.xml). Ahora, mapee un elemento de tipo \<select> al método 'consultarClientes':
 
@@ -89,8 +91,9 @@
    			SENTENCIA SQL
 	</select>
 	```
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Actualizacion%20ClienteMapper.png)
 
-3. Note que el mapeo hecho anteriormente, se indica que los detalles de a qué atributo corresponde cada columna del resultado de la consulta están en un 'resultMap' llamado "ClienteResult". En el XML del mapeo agregue un elemento de tipo &lt;resultMap&gt;, en el cual se defina, para una entidad(clase) en particular, a qué columnas estarán asociadas cada una de sus propiedades (recuerde que propiedad != atributo). La siguiente es un ejemplo del uso de la sintaxis de &lt;resultMap&gt; para la clase Maestro, la cual tiene una relación 'uno a muchos' con la clase DetalleUno y una relación 'uno a uno' con la clase DetalleDos, y donde -a la vez-, DetalleUno tiene una relación 'uno-a-uno- con DetalleDos:
+4. Note que el mapeo hecho anteriormente, se indica que los detalles de a qué atributo corresponde cada columna del resultado de la consulta están en un 'resultMap' llamado "ClienteResult". En el XML del mapeo agregue un elemento de tipo &lt;resultMap&gt;, en el cual se defina, para una entidad(clase) en particular, a qué columnas estarán asociadas cada una de sus propiedades (recuerde que propiedad != atributo). La siguiente es un ejemplo del uso de la sintaxis de &lt;resultMap&gt; para la clase Maestro, la cual tiene una relación 'uno a muchos' con la clase DetalleUno y una relación 'uno a uno' con la clase DetalleDos, y donde -a la vez-, DetalleUno tiene una relación 'uno-a-uno- con DetalleDos:
 
 	```xml
     <resultMap type='Maestro' id='MaestroResult'>
@@ -119,6 +122,8 @@
 	Como observa, Para cada propiedad de la clase se agregará un elemento de tipo &lt;result&gt;, el cual, en la propiedad 'property' indicará el nombre de la propiedad, y en la columna 'column' indicará el nombre de la columna de su tabla correspondiente (en la que se hará persistente). En caso de que la columna sea una llave primaria, en lugar de 'result' se usará un elemento de tipo 'id'. Cuando la clase tiene una relación de composición con otra, se agrega un elemento de tipo &lt;association&gt;.Finalmente, observe que si la clase tiene un atributo de tipo colección (List, Set, etc), se agregará un elemento de tipo &lt;collection&gt;, indicando (en la propiedad 'ofType') de qué tipo son los elementos de la colección. En cuanto al indentificador del 'resultMap', como convención se suele utilizar el nombre del tipo de dato concatenado con 'Result' como sufijo.
 	
 	Teniendo en cuenta lo anterior, haga cuatro 'resultMap': uno para la clase Cliente, otro para la clase ItemRentado, otro para la clase Item, y otro para la clase TipoItem. 
+
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/ResultMaps.png)
 
 5. Una vez haya hecho lo anterior, es necesario que en el elemento &lt;collection&gt; del maestro se agregue una propiedad que indique cual es el 'resultMap' a través del cual se podrá 'mapear' los elementos contenidos en dicha colección. Para el ejemplo anterior, como la colección contiene elementos de tipo 'Detalle', se agregará el elemento __resultMap__ con el identificador del 'resultMap' de Detalle:
 
@@ -166,6 +171,7 @@
 	...
 	```
 
+![](https://github.com/Pokecris200/Lab7CVDS/blob/master/Recursos/Ejecucion%20MyBatis.png)
 
 ## Parte II (para el Miércoles)
 
@@ -211,3 +217,4 @@
 + <https://stackoverflow.com/questions/6810375/resultset-convert-to-int-from-query>
 + <https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/>
 + <https://www.anerbarrena.com/mysql-insert-5169/>
++ <https://mybatis.org/mybatis-3/es/>
